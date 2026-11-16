@@ -10,8 +10,9 @@ class Formcomponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+            width: MediaQuery.of(context).size.width * 0.60,
             padding: EdgeInsets.all(50),
-            margin: EdgeInsets.fromLTRB(150, 70 , 150, 70),
+            margin: EdgeInsets.fromLTRB(0, 70 , 0, 70),
             decoration: 
               BoxDecoration(
                 color: Colors.white,
@@ -27,9 +28,10 @@ class Formcomponent extends StatelessWidget {
             spacing: 30,
             children: [ 
               Row(
+                spacing:20,
                 children: [
                   Expanded(child:Inputbox(title: "Task#", placeholder: 'Task No#'),),
-                  SizedBox(width:20),
+                  
                   Expanded(child: InputDateBox(title: "Date"),) ],),
               Inputbox(title: "Title", placeholder: 'Task title'),
               Inputbox(title: "Description", placeholder: 'Task Description'),
@@ -38,9 +40,10 @@ class Formcomponent extends StatelessWidget {
               Inputbox(title: "Problem", placeholder: 'Problem Encounter',minline: 3,),
               Inputbox(title: "Solution", placeholder: 'Problem solving process / approach',minline: 3,),
               Row(
+                spacing: 20,
                 children: [
-                  Expanded(child:Inputbox(title: "Other Tools", placeholder: 'System/Tools/software Architecture (if applicable)'),),
-                  SizedBox(width:20),
+                  Expanded(child:Inputbox(title: "Tools", placeholder: 'Hardware and Software Used'),),
+                  
                   Expanded(child: Inputbox(title: "Other Tools", placeholder: 'System/Tools/software Architecture (if applicable)'))
                   ]
                   ),

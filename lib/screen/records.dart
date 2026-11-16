@@ -27,7 +27,13 @@ class _RecordsState extends State<Records> {
                 MyFlutterApp.homelogo, 
                 size: 180,
                 color: Colors.amber,),
-              Formcomponent()
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: [
+                IconButton(color:Colors.amber,onPressed: () {}, icon:  Icon(Icons.arrow_back)),
+                SingleChildScrollView(scrollDirection:Axis.horizontal,child:Formcomponent()),
+                IconButton(splashColor:Colors.amber,iconSize:70, onPressed: () {}, icon:  Icon(Icons.arrow_forward_ios_outlined),style:IconButton.styleFrom(backgroundColor: Colors.amber))
+                ])
               ],
           )
         )

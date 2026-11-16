@@ -21,16 +21,15 @@ class Inputbox extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       
       children: [
-
-          SizedBox(
-          width: 100, 
+          SizedBox(width: 100,
           child: Padding(padding: EdgeInsetsGeometry.only(top:13),
             child:Text(title, style: TextStyle(color: Colors.black), overflow: TextOverflow.ellipsis,)),
             ),
-          SizedBox(width: 10, 
+         SizedBox(width: 10, 
           child:Padding(padding: EdgeInsetsGeometry.only(top: 13),child: Text(':'),)
             ),
         Expanded(
+           
             child: TextFormField(
               minLines: minline,
               maxLines: null,
