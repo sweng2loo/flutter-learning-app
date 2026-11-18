@@ -1,4 +1,6 @@
+import 'package:logbook/helpers/formcontrollers.dart';
 import 'package:logbook/helpers/my_flutter_app.dart';
+
 import 'package:logbook/widget/formcpnt.dart';
 
 import 'package:material_ui/material_ui.dart';
@@ -11,6 +13,10 @@ class Records extends StatefulWidget {
 }
 
 class _RecordsState extends State<Records> {
+  final _recordformcontrollers = Formcontrollers();
+
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +63,7 @@ class _RecordsState extends State<Records> {
                                         IconButton(onPressed: () {},iconSize: 40,icon:Icon(Icons.delete, color: Colors.white),style: IconButton.styleFrom(backgroundColor: Colors.red,fixedSize: Size(70, 70)),)
                                        ],), 
                               
-                                      Formcomponent(),
+                                      Formcomponent(controllers: _recordformcontrollers,),
                                       SizedBox(child: Text('?? of ?? Records'),),
                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
                                         ElevatedButton(onPressed: () {}, 

@@ -1,12 +1,19 @@
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 
 
 class InputDateBox extends StatefulWidget {
   final String title;
+  final TextEditingController controller;
+  final String? Function(String?)? valid;
+  final FocusNode? cvfocusNode;
 
 
   const new({super.key,
   required this.title,
+  required this.controller,
+  this.valid,
+  this.cvfocusNode
 });
 
   @override
@@ -14,21 +21,15 @@ class InputDateBox extends StatefulWidget {
 }
 
 class _InputDateBoxState extends State<InputDateBox> {
-  final TextEditingController _dateController = TextEditingController();
+  
   DateTime? _selectedDate;
-
-  @override
-  void dispose() {
-    _dateController.dispose();
-    super.dispose();
-  }
 
   Future<void> _pickDate(BuildContext context) async{
     final DateTime? picked = await showDatePicker(context: context, firstDate: DateTime(2000), lastDate: DateTime(2100));
     if (picked != null && picked != _selectedDate){
       
         _selectedDate = picked;
-        _dateController.text = "${picked.year}-${picked.month.toString().padLeft(2,'0')}-${picked.day.toString().padLeft(2,'0')}";
+        widget.controller.text = "${picked.year}-${picked.month.toString().padLeft(2,'0')}-${picked.day.toString().padLeft(2,'0')}";
       ;
     }
   }
@@ -52,8 +53,16 @@ class _InputDateBoxState extends State<InputDateBox> {
             ),
         Expanded(
             child: TextFormField(
-              controller: _dateController,
-              readOnly: true,
+              controller: widget.controller,
+              validator:  widget.valid,
+              focusNode: widget.cvfocusNode,
+              keyboardType: TextInputType.none,
+              showCursor: false,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'.*')), // Blocks physical keyboard typing
+              ],
+              canRequestFocus: true,
               onTap: () => _pickDate(context),
 
             decoration: InputDecoration(alignLabelWithHint: true,

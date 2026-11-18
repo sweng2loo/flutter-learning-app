@@ -5,13 +5,19 @@ class Inputbox extends StatelessWidget {
   final String title;
   final String placeholder;
   final int minline;
-  
+  final TextEditingController controller;
+  final String? Function(String?)? valid;
+  final FocusNode? cvfocusNode;
+   
 
   
   const new({super.key,
   required this.title,
   required this.placeholder,
-  this.minline = 1});
+  this.minline = 1,
+  required this.controller,
+  this.valid,
+  this.cvfocusNode});
   
 
   @override
@@ -33,6 +39,10 @@ class Inputbox extends StatelessWidget {
             child: TextFormField(
               minLines: minline,
               maxLines: null,
+              controller: controller,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              focusNode: cvfocusNode,
+              validator: valid,
             decoration: InputDecoration(alignLabelWithHint: true,
               labelText: placeholder, border: OutlineInputBorder(),focusColor: Colors.amber,),
             cursorColor:Colors.amberAccent)
