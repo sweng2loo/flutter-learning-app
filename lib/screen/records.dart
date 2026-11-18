@@ -86,6 +86,10 @@ class _RecordsState extends State<Records> {
                 );
     if (confirmation == true){
       await _database.cfndeleteTask(selectedtask.id!);
+      if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Record deleted!')),
+        );
+      
     }
       setState(() {
           if (_currentIndex > 0 && _currentIndex >= _records.length - 1) 
@@ -116,12 +120,22 @@ class _RecordsState extends State<Records> {
         specialRemark: _recordformcontrollers.specialremark.text,
        );
 
-    await _database.cfnupdateTask(updatedrecord);
-    setState(() {
-      editmode =false;
-    });
-
-    await _cfnloadfromDatabase();
+    try{
+        await _database.cfnupdateTask(updatedrecord);
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Task updated!')),
+        );
+        setState(() {
+          editmode =false;
+        });
+        await _cfnloadfromDatabase();
+        } catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to save task: $e')),
+            );
+            }
+    
     }
   }
 
@@ -141,7 +155,7 @@ class _RecordsState extends State<Records> {
         padding: EdgeInsetsGeometry.all(30),
         child:SingleChildScrollView( 
         scrollDirection: Axis.vertical,
-          child:Column(
+          child:Stack(children: [Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 20,
@@ -200,9 +214,11 @@ class _RecordsState extends State<Records> {
                 IconButton(splashColor:Colors.amber,iconSize:70, onPressed: (!editmode && _currentIndex < _records.length - 1) ? cfnnextRecord: null, icon:  Icon(Icons.arrow_forward_ios_outlined),style:IconButton.styleFrom(backgroundColor: Colors.amber))
                 
                 ])
-              ],
-          )
-        )
+              ],),
+              if(!editmode)
+              Positioned(top:100,right:100, child:IconButton(onPressed: () {Navigator.pop(context);},iconSize: 20,icon:Icon(Icons.close, color: Colors.white),style: IconButton.styleFrom(backgroundColor: Colors.red,fixedSize: Size(40, 40)),))
+          ])
+          ),  
       )
     );
   }

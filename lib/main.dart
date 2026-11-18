@@ -6,6 +6,7 @@ import 'package:logbook/screen/homescreen.dart';
 
 import 'package:material_ui/material_ui.dart';
 import 'package:sqflite_common_ffi/sqflite_common_ffi.dart';
+import 'package:window_manager/window_manager.dart';
 
 
 void main() {
@@ -15,6 +16,12 @@ void main() {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
   }
+   final window = WindowManager.instance.getCurrent()!;
+  window.minimumSize = const Size(800, 600).toNative(); // Minimum size
+  window.setSize(const Size(1000, 700).toNative(), false); // Optional starting size
+  window.center(); // Optional: center window on screen
+  window.show();
+  
   runApp(const MainApp());
 }
 
