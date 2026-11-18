@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:logbook/model/taskrecord.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class DatabaseServices {
@@ -18,7 +21,23 @@ class DatabaseServices {
  
 
   Future<Database> getDatabase() async {
-    final databaseFolderpath = await getDatabasesPath();
+    String databaseFolderpath;
+
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      // Uses safe AppData / Application Support folder on desktop
+      final appSupportDir = await getApplicationSupportDirectory(); // find the directory path that normally support by majority of platform
+      databaseFolderpath= appSupportDir.path; //extract the path value
+
+
+      await Directory(databaseFolderpath).create(recursive: true); 
+      // directory() only make the parameter become pathvalue as directoryclass, 
+      //create mean create the folder/directorypath ,
+      //recursive:true mean make all folder along the path that reach into destination 
+    }else {databaseFolderpath = await getDatabasesPath();}// this is for mobile or other platform
+
+
+
+
     final databasepath = join(databaseFolderpath,"logbook_Database.db");
     
     final database = await openDatabase(databasepath,
