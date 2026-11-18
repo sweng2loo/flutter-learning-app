@@ -52,11 +52,11 @@ class TaskRecord{
 
   // data conversion function for receive from database
   factory TaskRecord.comeFromDatabase(Map<String,Object?> map) { return TaskRecord(
-    id : map['id'] as int,
+    id : map['id'] as int?,
     taskNo: map['taskNo'] as int,
     date: map['date'] as String,
     title : map['title'] as String,
-    description: map['description'] as String,
+    description: map['description'] as String?,
     responsibility: map['responsibility'] as String?,
     detail: map['detail'] as String?,
     problem: map['problem'] as String?,

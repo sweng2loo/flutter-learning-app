@@ -8,6 +8,7 @@ class Inputbox extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? valid;
   final FocusNode? cvfocusNode;
+  final bool editmode;
    
 
   
@@ -17,7 +18,8 @@ class Inputbox extends StatelessWidget {
   this.minline = 1,
   required this.controller,
   this.valid,
-  this.cvfocusNode});
+  this.cvfocusNode,
+  this.editmode = true});
   
 
   @override
@@ -42,9 +44,10 @@ class Inputbox extends StatelessWidget {
               controller: controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               focusNode: cvfocusNode,
+              readOnly: !editmode,
               validator: valid,
             decoration: InputDecoration(alignLabelWithHint: true,
-              labelText: placeholder, border: OutlineInputBorder(),focusColor: Colors.amber,),
+              labelText: placeholder, border: OutlineInputBorder(),focusColor: Colors.amber,filled: !editmode, fillColor: !editmode ? null : Colors.grey.shade200,),
             cursorColor:Colors.amberAccent)
               )
         ],

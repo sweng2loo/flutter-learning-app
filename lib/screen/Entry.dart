@@ -28,10 +28,10 @@ class _EntryState extends State<Entry> {
     return trimmed.isEmpty ? null : trimmed;
   }
   
-  void _onReset(){
+  /*void _onReset(){
     _entryformcontrollers.clearAll();
 
-  }
+  }*/
   Future<void> _onSave()async{
     if(_entryformcontrollers.cfnvalidateAndFocus()){
     
@@ -108,11 +108,11 @@ class _EntryState extends State<Entry> {
                               
                                       Formcomponent(controllers: _entryformcontrollers,),
                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                                        ElevatedButton(onPressed: _onReset , 
+                                        ElevatedButton(onPressed: () {Navigator.pop(context);}  , 
                                           style: ElevatedButton.styleFrom(
                                             fixedSize: const Size(200, 50),
                                             backgroundColor :Colors.orange),
-                                          child: const Text('Reset',style: TextStyle(color:  Colors.white,fontSize: 30, fontFamily: 'Times New Roman')),),                                        
+                                          child: const Text('Cancel',style: TextStyle(color:  Colors.white,fontSize: 30, fontFamily: 'Times New Roman')),),                                        
                                         ElevatedButton(onPressed: _onSave, 
                                             style: ElevatedButton.styleFrom(
                                               fixedSize: const Size(200, 50),

@@ -55,13 +55,25 @@ class DatabaseServices {
 
   
 
-  Future<void> updateTask()async{
+  Future<void> cfnupdateTask()async{
+
+    
 
   }
 
-  Future<void> deleteTask()async{}
+  Future<int> cfndeleteTask(int id)async{
+    final logdb = await database;
+    return logdb.delete('Records', where: 'id =?',whereArgs: [id]);
+    
+  }
 
-  Future<void> loadTask()async{}
+  Future<List<TaskRecord>> cfnloadTasks()async{
+    final logdb = await database;
+    final result = await logdb.query('Records',orderBy: 'taskNo ASC, Date ASC');
+    return result.map((cvmap) => TaskRecord.comeFromDatabase(cvmap)).toList();
+
+
+  }
 
 
 

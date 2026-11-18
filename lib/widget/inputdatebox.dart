@@ -7,13 +7,16 @@ class InputDateBox extends StatefulWidget {
   final TextEditingController controller;
   final String? Function(String?)? valid;
   final FocusNode? cvfocusNode;
+  final bool editmode;
+  
 
 
   const new({super.key,
   required this.title,
   required this.controller,
   this.valid,
-  this.cvfocusNode
+  this.cvfocusNode,
+  this.editmode = true
 });
 
   @override
@@ -30,7 +33,7 @@ class _InputDateBoxState extends State<InputDateBox> {
       
         _selectedDate = picked;
         widget.controller.text = "${picked.year}-${picked.month.toString().padLeft(2,'0')}-${picked.day.toString().padLeft(2,'0')}";
-      ;
+      
     }
   }
 
@@ -58,15 +61,16 @@ class _InputDateBoxState extends State<InputDateBox> {
               focusNode: widget.cvfocusNode,
               keyboardType: TextInputType.none,
               showCursor: false,
+              readOnly: !widget.editmode,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               inputFormatters: [
                 FilteringTextInputFormatter.deny(RegExp(r'.*')), // Blocks physical keyboard typing
               ],
               canRequestFocus: true,
-              onTap: () => _pickDate(context),
+              onTap: widget.editmode ? () => _pickDate(context) : null,
 
             decoration: InputDecoration(alignLabelWithHint: true,
-              hintText: 'YYYY-MM-DD', border: OutlineInputBorder(),focusColor: Colors.amber,),
+              hintText: 'YYYY-MM-DD', border: OutlineInputBorder(),focusColor: Colors.amber,filled: !widget.editmode, fillColor: widget.editmode ? null : Colors.grey.shade200,),
             cursorColor:Colors.amberAccent)
               )
         ],

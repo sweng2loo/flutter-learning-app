@@ -1,3 +1,4 @@
+import 'package:logbook/model/taskrecord.dart';
 import 'package:material_ui/material_ui.dart';
 
 class Formcontrollers {
@@ -98,5 +99,20 @@ String? validateInteger(String? value){
 }
 
 
+
+void cfnloadfromDatabase(TaskRecord records){
+  taskNo.text = records.taskNo.toString();
+  date.text = records.date;
+  title.text = records.title;
+  description.text = records.description ?? '';
+  responsibility.text = records.responsibility ?? '';
+  detail.text = records.detail ?? '';
+  problem.text = records.problem ?? '';
+  solution.text = records.solution ?? '';
+  tools.text = records.tools ?? '';
+  othertools.text = records.othertools ?? '';
+  specialremark.text = records.specialRemark ?? '';
+
+}
 
 }
