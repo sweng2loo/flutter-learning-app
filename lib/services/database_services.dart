@@ -26,7 +26,7 @@ class DatabaseServices {
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       // Uses safe AppData / Application Support folder on desktop
       final appSupportDir = await getApplicationSupportDirectory(); // find the directory path that normally support by majority of platform
-      databaseFolderpath= appSupportDir.path; //extract the path value
+      databaseFolderpath= appSupportDir.path; //extract the path value == C:\Users\{username}\AppData\Roaming\com.example\logbook
 
 
       await Directory(databaseFolderpath).create(recursive: true); 
