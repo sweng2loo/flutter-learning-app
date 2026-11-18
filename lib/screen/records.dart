@@ -84,19 +84,28 @@ class _RecordsState extends State<Records> {
                   );
                  }   
                 );
-    if (confirmation == true){
-      await _database.cfndeleteTask(selectedtask.id!);
-      if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Record deleted!')),
-        );
+    if (confirmation != true) return;
+    
+    await _database.cfndeleteTask(selectedtask.id!);
+
+    await _cfnloadfromDatabase();
+    
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Record deleted!')),);
       
+    
+    if (_records.isEmpty ){
+      Navigator.pop(context);
+      return;
+
     }
       setState(() {
-          if (_currentIndex > 0 && _currentIndex >= _records.length - 1) 
-          {_currentIndex--;}
+          if (_currentIndex >= _records.length) {
+            _currentIndex = _records.length - 1;
+            }
           }
             );
-    await _cfnloadfromDatabase();
+    
   }
 
 
