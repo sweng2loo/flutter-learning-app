@@ -92,7 +92,37 @@ class _RecordsState extends State<Records> {
           {_currentIndex--;}
           }
             );
-    _cfnloadfromDatabase();
+    await _cfnloadfromDatabase();
+  }
+
+
+  Future<void> cfnUpdate() async{
+
+    if(_recordformcontrollers.cfnvalidateAndFocus()){
+
+    final selectedtask = _records[_currentIndex].id;
+    final updatedrecord = TaskRecord(
+        id: selectedtask,
+        taskNo: int.parse(_recordformcontrollers.taskNo.text),
+        date: _recordformcontrollers.date.text, 
+        title: _recordformcontrollers.title.text,
+        description: _recordformcontrollers.description.text,
+        responsibility: _recordformcontrollers.responsibility.text,
+        detail: _recordformcontrollers.detail.text,
+        problem: _recordformcontrollers.problem.text,
+        solution: _recordformcontrollers.solution.text,
+        tools: _recordformcontrollers.tools.text,
+        othertools: _recordformcontrollers.othertools.text,
+        specialRemark: _recordformcontrollers.specialremark.text,
+       );
+
+    await _database.cfnupdateTask(updatedrecord);
+    setState(() {
+      editmode =false;
+    });
+
+    await _cfnloadfromDatabase();
+    }
   }
 
 
@@ -152,14 +182,15 @@ class _RecordsState extends State<Records> {
                                        
                               
                                       Formcomponent(controllers: _recordformcontrollers,editmode: editmode,),
-                                      SizedBox(child: Text('${_currentIndex + 1} of ${_records.length} Records'),),
+                                      SizedBox(child: Text('${_currentIndex + 1} of ${_records.length} Records', style:const TextStyle(fontFamily: 'Times New Roman',fontSize: 20))),
+                                      if(editmode)
                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
                                         ElevatedButton(onPressed: editmode ? () {setState(() {editmode = false; _cfnloadfromDatabase();});} : null ,
                                           style: ElevatedButton.styleFrom(
                                             fixedSize: const Size(200, 50),
                                             backgroundColor :Colors.orange),
                                           child: const Text('Cancel',style: TextStyle(color:  Colors.white,fontSize: 30, fontFamily: 'Times New Roman')),),                                        
-                                        ElevatedButton(onPressed: editmode ? (){} : null,
+                                        ElevatedButton(onPressed: editmode ? (){cfnUpdate();} : null,
                                             style: ElevatedButton.styleFrom(
                                               fixedSize: const Size(200, 50),
                                               backgroundColor :Colors.orange),

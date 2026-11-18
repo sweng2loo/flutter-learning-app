@@ -55,9 +55,18 @@ class DatabaseServices {
 
   
 
-  Future<void> cfnupdateTask()async{
+  Future<int> cfnupdateTask(TaskRecord record)async{
+    final logdb = await database;
 
-    
+    if (record.id == null) {
+    throw ArgumentError('Cannot update a TaskRecord without an ID.');
+  }
+    return await logdb.update("Records", 
+          record.sendToDatabase(),
+          where: 'id = ? ',
+          whereArgs: [record.id]
+          );
+
 
   }
 
