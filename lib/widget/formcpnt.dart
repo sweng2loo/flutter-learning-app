@@ -9,20 +9,7 @@ class Formcomponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-            width: MediaQuery.of(context).size.width * 0.60,
-            padding: EdgeInsets.all(50),
-            margin: EdgeInsets.fromLTRB(0, 70 , 0, 70),
-            decoration: 
-              BoxDecoration(
-                color: Colors.white,
-                boxShadow:[
-                  BoxShadow(color: Colors.black.withOpacity(0.3),  // shadow color
-                    blurRadius: 8,        // how soft/blurry
-                    spreadRadius: 2,      // how far it extends beyond the box
-                    offset: const Offset(0, 4),)],
-                borderRadius: BorderRadius.all(Radius.circular(20)) ),
-            child:Column(
+    return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 30,
@@ -51,7 +38,7 @@ class Formcomponent extends StatelessWidget {
               
               
                ],
-            )
+            
           );
         
   }

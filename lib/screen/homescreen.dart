@@ -1,9 +1,12 @@
+import 'package:logbook/screen/entry.dart';
 import 'package:logbook/screen/records.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:logbook/helpers/my_flutter_app.dart';
 
 class Homescreen extends StatelessWidget {
   const new({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,9 @@ class Homescreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(onPressed: () {}, 
+            ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> Entry()));
+            }, 
             style: ElevatedButton.styleFrom(
               fixedSize: const Size(200, 50),
               backgroundColor :Colors.orange),
